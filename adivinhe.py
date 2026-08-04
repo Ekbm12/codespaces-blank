@@ -13,7 +13,7 @@ def jogar(maximo, chances):
     acertou= False
 
     while chances > 0 an not acertou:
-           palpite = int(input(Seu palpite (1 a " = str(maximo) = "): "))
+           palpite = int(input(palpite (1 a " = str(maximo) = "):"))
                     
             if palpite == numero_secreto:
                 print("🎉 Acertou!")
@@ -42,4 +42,11 @@ def jogar(maximo, chances):
  print("3 - Impossível  (1 a 1000,10 chances)")
 opcao = int(input("Digite 1, 2 ou 3: "))
 
-# A opção 
+# A opção 1 está na posição 0 da lista, por isso o ajuste
+nivel = niveis[opcao -1]
+
+# === Iniciamos o jogo com a configuração do nível escolhido ===
+print("Você escolheu o nível:", nivel[0])
+venceu = jogar(nivel[1], nivel[2])
+if not venceu:
+    print("💀 Fim de jogo! Tente um nível mais facíl.😉")
