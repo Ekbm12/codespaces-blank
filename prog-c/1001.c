@@ -10,11 +10,8 @@ int main(){
 int A=0;
 int B=0;
 
-printf("Digite o valor:    ");
 scanf("%d", &A);
-printf("Digite o outro valor:   ");
-scanf("%d, &B");
-int soma= A+B;
-   printf("Soma: %d\n", soma);
+scanf("%d", &B);
+   printf("X = %d\n", A+B);
 
     return 0; }
