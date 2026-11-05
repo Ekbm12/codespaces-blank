@@ -2,17 +2,17 @@
 * Disciplina    : 2026-PCAP
 * Problema      : beecrowd 1004 - Produto Basico
 * Autor         : João Vitor Monteiro
-* LIAC          :
+* LIAC          : 
 */
 
 #include <iostream>
 using namespace std;
 
 int main(){
-    PROD a,b;
+    std a,b;
 
-    cin PROD a PROD b;
-    cout << "PROD=" << a    b << endl;
+    cin std a std b;
+    cout << "PROD=" << ab << endl;
 
     return 0;
 }
