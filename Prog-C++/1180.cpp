@@ -5,35 +5,38 @@
 * LIAC  : Le N e depois N inteiros num vector. Imprime o menor valor e a posicao em que ele esta (apartir de zero),o vector sendo uma biblioteca como o cout.
 */
 
-#include <iostream>  
+#include <iostream>
 #include <vector>
+
 using namespace std;
 
-int posicao_do_menor(vector<int> &v) {
-    int i, pos = 0, qtd = v.size();
-
-    for (i = 1; i < qtd; i++) {
-        if (v[i] < v [pos]) {
-            pos = i;
-        }
-    }
-    return pos;
-}
-
 int main() {
-    vector<int> v;
-    int n, x, i, pos;
+    int N;
 
-    cin >> n;
-    for (i = 0; i < n; i++) {
-        cin >> x;
-        v.push_back(x);
+    if (cin >> N) {
+        vector<int> X(N);
+
+        // Leitura dos N elementos do vetor
+        for (int i = 0; i < N; i++) {
+            cin >> X[i];
+        }
+
+        // Inicializa o menor valor e a posição com o primeiro elemento (índice 0)
+        int menor = X[0];
+        int posicao = 0;
+
+        // Percorre a partir do segundo elemento para encontrar o menor
+        for (int i = 1; i < N; i++) {
+            if (X[i] < menor) {
+                menor = X[i];
+                posicao = i;
+            }
+        }
+
+        // Impressão no formato exato exigido
+        cout << "Menor valor: " << menor << endl;
+        cout << "Posicao: " << posicao << endl;
     }
-
-    pos = posicao_do_menor(v);
-
-    cout << "Menor valor: " << v[pos] << endl;
-    cout << "Posicao: " << pos << endl;
 
     return 0;
 }
