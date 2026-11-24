@@ -2,10 +2,12 @@
  * Disciplina: 2026--PCAP
  * Projeto   : MeuApp v5.0 - o Fliperama em Java (aula 33)
  * Autor     : João Vitor Monteiro
- * LIAC      : Menu com validacao e cadastro de jogadores: cada jogador 
- *             e uma ficha (classe Jogador) guardada numa lista que cresce.
-*/
+ * LIAC      : Menu com validacao e cadastro de jogadores em fichas (classe
+ *             Jogador) numa lista que cresce, e um jogo que conta as
+ *             partidas de quem jogou.
+ */
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 class jogador {
@@ -15,6 +17,7 @@ class jogador {
 public class fliperama {
     static final String DONO = "João";
     static Scanner teclado = new Scanner(System.in);
+    static Random sorteio = new Random();
 
     static void linha() {
         System.out.println("=========================================");
@@ -54,6 +57,17 @@ public class fliperama {
         return teclado.nextLine();
     }
 
+    static int buscar(ArrayList<jogador> jogadores, String procurado){
+        int i, qtd = jogadores.size();
+
+        for (i = 0; i < qtd; i++) {
+            if(jogadores.get(i).apelido.equals(procurado)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
     static void cadastrar(ArrayList<jogador> jogadores) {
         jogador novo = new jogador();
 
@@ -78,6 +92,39 @@ public class fliperama {
         }
     }
 
+    static void jogadorAdivinhe(ArrayList<jogador> jogadores) {
+        jogador jogador;
+        String quem;
+        int pos, segredo, palpite, tentativas;
+    
+        titulo("ADIVINHE O NUMERO");
+        quem = lertexto("Quem vai jogar");
+        pos = buscar(jogadores, quem);
+        if (pos == -1) {
+            System.out.println("Cadastre esse apelido antes de jogar");
+            return;
+        }
+
+        segredo = sorteio.nextInt(100) + 1;
+        System.out.println("Pensei num numero de 1 a 100.");
+
+        palpite = lerNumero("Seu palpite", 1, 100);
+        tentativas = 1;
+        while (palpite != segredo) {
+            if (palpite < segredo) {
+                System.out.println("Maior!");
+            } else {
+                System.out.println("Menor");
+            }
+            palpite = lerNumero("Se palpite", 1, 100);
+            tentativas = tentativas + 1; 
+        }
+        System.out.println("Acertou em " + tentativas + " tentativas, " + quem + "!");
+
+        jogador = jogadores.get(pos);
+        jogador.partidas = jogador.partidas + 1;
+    }
+
     static void mostrarMenu() {
         linha();
         System.out.println(" FLIPERAMA DO " + DONO);
@@ -97,7 +144,7 @@ public class fliperama {
         opcao = lerNumero("Sua Escolha", 0, 3);
         while (opcao != 0) {
             if (opcao == 1) {
-                System.out.println("O jogo entra na Fase 3.");
+                jogadorAdivinhe(jogadores);
             } else if (opcao == 2) {
                 cadastrar(jogadores);
             } else {
