@@ -2,11 +2,16 @@
  * Disciplina: 2026--PCAP
  * Projeto   : MeuApp v5.0 - o Fliperama em Java (aula 33)
  * Autor     : João Vitor Monteiro
- * LIAC      : Menu do Fliperama em Java: metodos que desenham, um que le
- *             um numero dentro de uma faixa, e o laco que so para no 0
+ * LIAC      : Menu com validacao e cadastro de jogadores: cada jogador 
+ *             e uma ficha (classe Jogador) guardada numa lista que cresce.
 */
+import java.util.ArrayList;
 import java.util.Scanner;
 
+class jogador {
+    String apelido;
+    int partidas;
+}
 public class fliperama {
     static final String DONO = "João";
     static Scanner teclado = new Scanner(System.in);
@@ -41,6 +46,36 @@ public class fliperama {
             numero = lerInteiro();
         }
         return numero;
+
+    }
+
+    static String lertexto(String mensagem) {
+        System.out.print(mensagem + ": ");
+        return teclado.nextLine();
+    }
+
+    static void cadastrar(ArrayList<jogador> jogadores) {
+        jogador novo = new jogador();
+
+        titulo("NOVO JOGADOR");
+        novo.apelido = lertexto("Apelido");
+        novo.partidas = 0;
+        jogadores.add(novo);
+        System.out.println("jogador " + novo.apelido + " cadastrado.");
+    }
+
+    static void listar(ArrayList<jogador> jogadores) {
+        jogador j;
+        int i, qtd = jogadores.size();
+
+        titulo("JOGADORES CADASTRO");
+        if (qtd == 0) {
+            System.out.println("Nenhum jogador cadastro ainda.");
+        }
+        for (i = 0; i < qtd; i++) {
+            j = jogadores.get(i);
+            System.out.println(j.apelido + " | " + j.partidas + " partidas");
+        }
     }
 
     static void mostrarMenu() {
@@ -55,6 +90,7 @@ public class fliperama {
     }
     
     public static void main(String [] args) {
+        ArrayList<jogador> jogadores = new ArrayList<jogador>();
         int opcao;
 
         mostrarMenu();
@@ -63,9 +99,9 @@ public class fliperama {
             if (opcao == 1) {
                 System.out.println("O jogo entra na Fase 3.");
             } else if (opcao == 2) {
-                System.out.println("O cadastro entra na fase 2.");
+                cadastrar(jogadores);
             } else {
-                System.out.println("A lista entra na Fase 2.");
+                listar(jogadores);
             }
             mostrarMenu();
             opcao = lerNumero("Sua escolha", 0, 3);
